@@ -1,10 +1,12 @@
 import Component from '../../shared/component.js';
 
 export default class PhoneViewer extends Component {
-  constructor({ element }) {
+  constructor({ element, backButtonClick }) {
     super({ element });
 
+    this._backButtonClick = backButtonClick;
     this._element.addEventListener('click', this._onThumbClick.bind(this));
+    this._element.addEventListener('click', this._onBackButton.bind(this));
   }
 
   _onThumbClick(event) {
@@ -16,6 +18,20 @@ export default class PhoneViewer extends Component {
     coverImg.setAttribute('src', thumbImg.getAttribute('src'));
 
   };
+
+  _onBackButton(event) {
+    //let backBtn = this._element.querySelector('[data-element="back-button"]');
+    let backBtn = event.target.closest('[data-element="back-button"]');
+    console.log(backBtn);
+
+    if (!backBtn) return;
+
+    super.hide();
+    this._backButtonClick();
+
+  };
+
+  
 
   showPhone(phone) {
     this._phone = phone;
@@ -30,7 +46,7 @@ export default class PhoneViewer extends Component {
     this._element.innerHTML = `
       <img data-element="phone-cover-image" class="phone" src="${phone.images[0]}">
 
-      <button>Back</button>
+      <button data-element="back-button">Back</button>
       <button>Add to basket</button>
 
 
