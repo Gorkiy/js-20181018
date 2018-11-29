@@ -20,18 +20,13 @@ export default class PhoneViewer extends Component {
   };
 
   _onBackButton(event) {
-    //let backBtn = this._element.querySelector('[data-element="back-button"]');
     let backBtn = event.target.closest('[data-element="back-button"]');
-    console.log(backBtn);
 
     if (!backBtn) return;
 
     super.hide();
     this._backButtonClick();
-
   };
-
-  
 
   showPhone(phone) {
     this._phone = phone;
